@@ -1,5 +1,5 @@
 from pprint import pprint
-import Image
+from Image import Image
 import Slide
 
 
@@ -24,19 +24,21 @@ def fitness(a, b):
 def file_to_images(file_name):
     file = open(file_name, "r")
     images = []
-    num_photos = file.readline()
+    num_photos = int(file.readline())
     for i in range(0, num_photos):
-        str = file.readline()
-        str.splitline(" ")
-        tags = [x for x in str[2:]]
-
-        image = Image(i, tags, str[0] == "V")
+        string = file.readline()
+        string = string.strip("\n").split(" ")
+        tags = [x for x in string[2:]]
+        image = Image(i, tags, string[0] == "V")
         images.append(image)
     return images
 
 
 def main():
-    pprint(file_to_images("a_example.txt"))
+    for x in file_to_images("../a_example.txt"):
+        print(x.image_num)
+        print(x.tags)
+        print(x.vertical)
 
 
 def construct_slideshow(slides):
