@@ -14,6 +14,19 @@ def fitness(a, b):
 
     return f, r
 
+# pass file name and will return a list of Image objects
+def file_to_images(file_name):
+    file = open(file_name, "r")
+    images = []
+    num_photos = file.readline()
+    for i in range(0, num_photos):
+        str = file.readline()
+        str.splitline(" ")
+        tags = [x for x in str[2:]]
+
+        image = image(i, tags, str[0] == "V")
+        images.append(image)
+    return images
 
 def main():
     pass
