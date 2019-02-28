@@ -39,6 +39,7 @@ def file_to_images(file_name):
 
 
 def pair_images(images):
+    avg_tags = float(sum([len(x.tags) for x in images])) / float(len(images))
     for i in images:
         print(i.tags)
     return images
@@ -52,7 +53,6 @@ def slides_from_images(images):
 def main():
     images = file_to_images("../c_memorable_moments.txt")
     slides = slides_from_images(images)
-
 
 
 def construct_slideshow(slides):
