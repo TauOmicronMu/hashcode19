@@ -40,8 +40,9 @@ def file_to_images(file_name):
 
 def slides_to_file(slides, file_name):
     file = open(file_name, "w")
-    file.write(str(len(slides)))
-    for x in slides[1:]:
+    print(len(slides))
+    file.write(str(len(slides)) + "\n")
+    for x in slides:
         out = ""
         for y in x.image:
             out += str(y.image_num) + " "
@@ -76,11 +77,14 @@ def main():
     file_name = "a_example.txt"
     images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
+
     slideshow = construct_slideshow(slides)
+
     score = 0
     for (i, slide) in enumerate(slideshow[:-1]):
         score += fitness(slide, slideshow[i + 1])[0]
     print(score)
+
     slides_to_file(slideshow, "../" + file_name[0:1] + "_output.txt")
 
 def construct_slideshow(slides):
