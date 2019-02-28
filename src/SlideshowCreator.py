@@ -19,8 +19,6 @@ def main():
     pass
 
 
-<<<<<<< HEAD
-=======
 def construct_slideshow(slides):
     """
         Tries to construct an optimal slideshow from a set of
