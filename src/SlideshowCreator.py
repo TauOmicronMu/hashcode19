@@ -45,7 +45,8 @@ def pair_images(images):
 
 
 def slides_from_images(images):
-    return [Slide([x]) for x in images if not x.vertical] + [Slide([x]) for x in pair_images([y for y in images if y.vertical])]
+    return [Slide([x]) for x in images if not x.vertical] +\
+           [Slide([x]) for x in pair_images([y for y in images if y.vertical])]
 
 
 def main():
