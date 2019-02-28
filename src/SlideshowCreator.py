@@ -38,11 +38,21 @@ def file_to_images(file_name):
     return images
 
 
+def pair_images(images):
+
+    return images
+
+
+def slides_from_images(images):
+    return [Slide([x]) for x in images if not x.vertical] + pair_images([x for x in images if x.vertical])
+
+
 def main():
-    for x in file_to_images("../a_example.txt"):
-        print(x.image_num)
-        print(x.tags)
-        print(x.vertical)
+    images = file_to_images("../a_example.txt")
+    slides = slides_from_images(images)
+    for i in images:
+        print(i.tags)
+
 
 
 def construct_slideshow(slides):
