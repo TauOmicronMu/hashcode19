@@ -1,3 +1,7 @@
+import Image
+import Slide
+
+
 def fitness(a, b):
     a_tags = a.tags
     b_tags = b.tags
@@ -14,6 +18,7 @@ def fitness(a, b):
 
     return f, r
 
+
 # pass file name and will return a list of Image objects
 def file_to_images(file_name):
     file = open(file_name, "r")
@@ -24,9 +29,10 @@ def file_to_images(file_name):
         str.splitline(" ")
         tags = [x for x in str[2:]]
 
-        image = image(i, tags, str[0] == "V")
+        image = Image(i, tags, str[0] == "V")
         images.append(image)
     return images
+
 
 def main():
     pass
