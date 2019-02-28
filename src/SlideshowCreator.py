@@ -6,10 +6,10 @@ def fitness(a, b):
     exclusive_b_tags = [x for x in b_tags if x not in shared_tags]
 
     num_shared_tags = len(shared_tags)
-    numATags = len(exclusive_a_tags)
-    numBTags = len(exclusive_b_tags)
+    num_a_tags = len(exclusive_a_tags)
+    num_b_tags = len(exclusive_b_tags)
 
-    f = min(numATags, numBTags, num_shared_tags)
+    f = min(num_a_tags, num_b_tags, num_shared_tags)
     r = float(num_shared_tags) / (float(len(a_tags + len(b_tags))) / 2.0)
 
     return f, r
