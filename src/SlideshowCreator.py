@@ -14,13 +14,24 @@ def fitness(a, b):
 
     return f, r
 
+# pass file name and will return a list of Image objects
+def file_to_images(file_name):
+    file = open(file_name, "r")
+    images = []
+    num_photos = file.readline()
+    for i in range(0, num_photos):
+        str = file.readline()
+        str.splitline(" ")
+        tags = [x for x in str[2:]]
+
+        image = image(i, tags, str[0] == "V")
+        images.append(image)
+    return images
 
 def main():
     pass
 
 
-<<<<<<< HEAD
-=======
 def construct_slideshow(slides):
     """
         Tries to construct an optimal slideshow from a set of
@@ -44,10 +55,3 @@ def construct_slideshow(slides):
     #  Piece the rest of the slides together by selecting the best slide for the current right-hand slide
 
     #  Return the constructed slideshow
-
-
-
-
->>>>>>> 746d0a84602756ff30eeb04f3a7a20c57e722eb1
-if __name__ == "__main__":
-    main()
