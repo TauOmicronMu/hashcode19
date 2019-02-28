@@ -77,7 +77,10 @@ def main():
     images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
     slideshow = construct_slideshow(slides)
-
+    score = 0
+    for (i, slide) in enumerate(slideshow[:-1]):
+        score += fitness(slide, slideshow[i + 1])[0]
+    print(score)
     slides_to_file(slideshow, "../" + file_name[0:1] + "_output.txt")
 
 def construct_slideshow(slides):
