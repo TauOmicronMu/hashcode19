@@ -72,6 +72,15 @@ def slides_to_file(slides, file_name):
             out += str(y.image_num) + " "
         file.write(out + "\n")
 
+'''
+file names
+==========
+a_example
+b_lovely_landscapes
+c_memorable_moments
+d_pet_pictures
+e_shiny_selfies
+'''
 
 def main():
     file_name = "a_example.txt"
