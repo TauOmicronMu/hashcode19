@@ -78,6 +78,7 @@ def main():
     file_name = "c_memorable_moments.txt"
     images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
+    slideshow = construct_slideshow(slides)
 
     slides_to_file(slides, "../" + file_name[0:1] + "_output.txt")
 
