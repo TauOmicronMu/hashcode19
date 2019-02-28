@@ -1,3 +1,5 @@
+from pprint import pprint
+
 def fitness(a, b):
     a_tags = a.tags
     b_tags = b.tags
@@ -29,7 +31,7 @@ def file_to_images(file_name):
     return images
 
 def main():
-    pass
+    pprint(file_to_images("a_example.txt"))
 
 
 def construct_slideshow(slides):
