@@ -53,19 +53,30 @@ def construct_slideshow(slides):
     :return: A (probably) optimal(ish) slideshow of images.
     """
 
-    matrix = []
+    matrix = {}
     #  Calculate a fitness matrix for all slides.
     #  TODO: this is inefficient as the matrix is symmetrical, so you don't
     #  need to compute it all
     for i in range(0, len(slides)):
         for j in range(0, len(slides)):
-            matrix[i][j] = fitness(slides[i], slides[j])
+            matrix[i.image[0].image_num][j.image[0].image_num] = fitness(slides[i], slides[j])
 
     #  Choose pairs of slides that maximise the fitness.
     pairs = []
 
     #  Select the pair with the worst left-hand slide and choose that as the
     #  starting slide
+    #  Keep taking the first slide from slides, and find the one it has the highest fitness with.
+    while len(slides) > 1:
+        slide_one = slides[0]
+        slides[0].taken = True
+        fitness_dict = matrix[slide_one.image[0].image_num]
+        candidates = fitness_dict.keys()
+        fitnesses = [x[1] for x in fitness_dict.values()]
+        partner = [x for (x, y) in zip(candidates, fitnesses) if y == max(fitnesses)]
+
+
+    #  Select the pair with the worst left-hand slide and choose that as the starting slide
 
     #  Piece the rest of the slides together by selecting the best slide for
     #  the current right-hand slide
