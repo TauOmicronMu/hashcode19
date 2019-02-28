@@ -14,10 +14,13 @@ def fitness(a, b):
 
     return f, r
 
+
 def main():
     pass
 
 
+<<<<<<< HEAD
+=======
 def construct_slideshow(slides):
     """
         Tries to construct an optimal slideshow from a set of
@@ -45,5 +48,6 @@ def construct_slideshow(slides):
 
 
 
+>>>>>>> 746d0a84602756ff30eeb04f3a7a20c57e722eb1
 if __name__ == "__main__":
     main()
