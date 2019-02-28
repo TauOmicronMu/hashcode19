@@ -15,7 +15,7 @@ def fitness(a, b):
     num_b_tags = len(exclusive_b_tags)
 
     f = min(num_a_tags, num_b_tags, num_shared_tags)
-    r = float(num_shared_tags) / (float(len(a_tags + len(b_tags))) / 2.0)
+    r = float(num_shared_tags) / (float(len(a_tags) + len(b_tags)) / 2.0)
 
     return f, r
 
@@ -75,12 +75,12 @@ def slides_from_images(images):
 
 
 def main():
-    file_name = "c_memorable_moments.txt"
+    file_name = "a_example.txt"
     images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
     slideshow = construct_slideshow(slides)
 
-    slides_to_file(slides, "../" + file_name[0:1] + "_output.txt")
+    slides_to_file(slideshow, "../" + file_name[0:1] + "_output.txt")
 
 def construct_slideshow(slides):
     """
