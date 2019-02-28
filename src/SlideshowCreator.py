@@ -96,6 +96,7 @@ def main():
 
     slides_to_file(slideshow, "../" + file_name[0:1] + "_output.txt")
 
+
 def construct_slideshow(slides):
     """
         Tries to construct an optimal slideshow from a set of
