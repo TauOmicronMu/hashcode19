@@ -64,8 +64,6 @@ def pair_images(images):
         paired_images.append((base_image, fittest[0]))
         working_images.remove(fittest[0])
         working_images.remove(base_image)
-    for i in paired_images:
-        print(i[0].tags, i[1].tags)
     return paired_images
 
 
