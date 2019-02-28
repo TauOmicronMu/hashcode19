@@ -38,6 +38,16 @@ def file_to_images(file_name):
     return images
 
 
+def slides_to_file(slides, file_name):
+    file = open(file_name, "w")
+    file.write(str(len(slides)))
+    for x in slides[1:]:
+        out = ""
+        for y in x.image:
+            out += str(y.image_num) + " "
+        file.write(out + "\n")
+
+
 def pair_images(images):
     for i in images:
         print(i.tags)
@@ -50,9 +60,11 @@ def slides_from_images(images):
 
 
 def main():
-    images = file_to_images("../c_memorable_moments.txt")
+    file_name = "c_memorable_moments.txt"
+    images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
 
+    slides_to_file(slides, "../" + file_name[0:1] + "_output.txt")
 
 
 def construct_slideshow(slides):
