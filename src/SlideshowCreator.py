@@ -65,3 +65,7 @@ def construct_slideshow(slides):
     #  the current right-hand slide
 
     #  Return the constructed slideshow
+
+
+if __name__ == "__main__":
+    main()
