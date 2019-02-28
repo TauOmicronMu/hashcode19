@@ -35,19 +35,18 @@ def file_to_images(file_name):
 
 
 def pair_images(images):
-
+    for i in images:
+        print(i.tags)
     return images
 
 
 def slides_from_images(images):
-    return [Slide([x]) for x in images if not x.vertical] + pair_images([x for x in images if x.vertical])
+    return [Slide([x]) for x in images if not x.vertical] + [Slide([x]) for x in pair_images([y for y in images if y.vertical])]
 
 
 def main():
-    images = file_to_images("../a_example.txt")
+    images = file_to_images("../c_memorable_moments.txt")
     slides = slides_from_images(images)
-    for i in images:
-        print(i.tags)
 
 
 
