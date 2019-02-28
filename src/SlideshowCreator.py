@@ -73,7 +73,7 @@ def slides_from_images(images):
 
 
 def main():
-    file_name = "c_memorable_moments.txt"
+    file_name = "a_example.txt"
     images = file_to_images("../" + file_name)
     slides = slides_from_images(images)
     slideshow = construct_slideshow(slides)
