@@ -15,7 +15,7 @@ def fitness(a, b):
     num_b_tags = len(exclusive_b_tags)
 
     f = min(num_a_tags, num_b_tags, num_shared_tags)
-    r = float(num_shared_tags) / (float(len(a_tags + len(b_tags))) / 2.0)
+    r = float(num_shared_tags) / (float(len(a_tags) + len(b_tags)) / 2.0)
 
     return f, r
 
@@ -64,8 +64,6 @@ def pair_images(images):
         paired_images.append((base_image, fittest[0]))
         working_images.remove(fittest[0])
         working_images.remove(base_image)
-    for i in paired_images:
-        print(i[0].tags, i[1].tags)
     return paired_images
 
 
@@ -80,7 +78,7 @@ def main():
     slides = slides_from_images(images)
     slideshow = construct_slideshow(slides)
 
-    slides_to_file(slides, "../" + file_name[0:1] + "_output.txt")
+    slides_to_file(slideshow, "../" + file_name[0:1] + "_output.txt")
 
 def construct_slideshow(slides):
     """
