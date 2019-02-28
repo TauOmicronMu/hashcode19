@@ -27,7 +27,7 @@ def file_to_images(file_name):
         :return: A list of all image objects.
         """
     file = open(file_name, "r")
-    images = []
+    images = list()
     num_photos = int(file.readline())
     for i in range(0, num_photos):
         string = file.readline()
@@ -65,33 +65,74 @@ def construct_slideshow(slides):
 
     matrix = {}
     #  Calculate a fitness matrix for all slides.
-    #  TODO: this is inefficient as the matrix is symmetrical, so you don't
-    #  need to compute it all
+    #  TODO: this is inefficient as the matrix is symmetrical, so you don't need to compute it all
     for i in range(0, len(slides)):
         for j in range(0, len(slides)):
-            matrix[i.image[0].image_num][j.image[0].image_num] = fitness(slides[i], slides[j])
+            matrix[slides[i].image[0].image_num][slides[j].image[0].image_num] = fitness(slides[i], slides[j])
 
     #  Choose pairs of slides that maximise the fitness.
     pairs = []
 
-    #  Select the pair with the worst left-hand slide and choose that as the
-    #  starting slide
     #  Keep taking the first slide from slides, and find the one it has the highest fitness with.
+    #  Then add this to pairs.
     while len(slides) > 1:
         slide_one = slides[0]
         slides[0].taken = True
-        fitness_dict = matrix[slide_one.image[0].image_num]
-        candidates = fitness_dict.keys()
-        fitnesses = [x[1] for x in fitness_dict.values()]
-        partner = [x for (x, y) in zip(candidates, fitnesses) if y == max(fitnesses)]
 
+        partner = get_partner(slide_one, [x for x in matrix.keys() if not x.taken])
+
+        pairs.append((slide_one, partner))
+        slides[slides.indexOf(partner)].taken = True
 
     #  Select the pair with the worst left-hand slide and choose that as the starting slide
+    #  i.e. the one with the lowest number of tags on the LHS
+    #  TODO: we could do this based on the frequency of tags too?
+    #        Like, use the LHS with the least, less-frequent tags
+    nums = [len(x.tags) for (x, y) in slides]
+    i = nums.index(min(nums))
+    start_pair = pairs[i]
+    pairs.remove(start_pair)
+
+    pair_slideshow = list()
+    pair_slideshow.append(start_pair)
 
     #  Piece the rest of the slides together by selecting the best slide for
     #  the current right-hand slide
 
+    #  Get the final slide in the current slideshow
+    while len(pairs) > 0:
+        current_final_pair = pair_slideshow[-1][1]
+
+        #  Now get the best next slide from our list of pairs
+        final_slide_partner = get_partner(current_final_pair[1], [x for (x, y) in pairs])
+        next_slide = [(x, y) for (x, y) in pairs if x.image[0].image_num == final_slide_partner.image[0].image_num]
+        pair_slideshow.append(next_slide)
+
     #  Return the constructed slideshow
+    return [x.append(y) for (x, y) in pair_slideshow]
+
+
+def get_partner(slide, candidates):
+    """
+        Returns the optimal partner for a given slide.
+    :param slide: The slide to find a partner for.
+    :param candidates: all the currently non-taken slides.
+    :return: The best candidate for the given slide that isn't currently taken.
+    """
+    fitness_dict = matrix[slide.image[0].image_num]
+    fitnesses = [x[1] for x in fitness_dict.values()]
+
+    #  Choose the best non-taken candidate.
+    selected = False
+    sorted_pairs = list(zip(candidates, fitnesses))
+    sorted_pairs.sort(key=lambda x: x[1])
+    partner_num = 0
+    while not selected:
+        if sorted_pairs[partner_num][0].taken:
+            continue
+        selected = True
+
+    return [x for x in candidates if x.image[0].image_num == partner_num][0]
 
 
 if __name__ == "__main__":

@@ -14,3 +14,4 @@ class Slide:
         self.next_slide = None
         self.start = False
         self.end = False
+        self.taken = False
