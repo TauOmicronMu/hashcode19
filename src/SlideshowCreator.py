@@ -42,10 +42,3 @@ def construct_slideshow(slides):
     #  Piece the rest of the slides together by selecting the best slide for the current right-hand slide
 
     #  Return the constructed slideshow
-
-
-
-
->>>>>>> 746d0a84602756ff30eeb04f3a7a20c57e722eb1
-if __name__ == "__main__":
-    main()
