@@ -10,5 +10,5 @@ class Slide:
     def set_start(self, start):
         self.start = start
 
-    def get_start(self, start):
-        self.start = start
+    def set_end(self, end):
+        self.end = end
