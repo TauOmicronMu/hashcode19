@@ -20,6 +20,30 @@ def fitness(a, b):
     return f, r
 
 
+def pair_images(images):
+    avg_tags = float(sum([len(x.tags) for x in images])) / float(len(images))
+    paired_images = []
+    working_images = images
+    while len(working_images) > 0:
+        base_image = working_images[0]
+        fitnesses = {}
+        for (j, image) in enumerate(working_images[1:]):
+            total_tags = len(base_image.tags) + len(list(set(image.tags) - set(base_image.tags)))
+            intersecting = len([x for x in base_image.tags if x in image.tags])
+            optimal_tags = 2 * avg_tags
+            fitnesses[image] = (optimal_tags - abs(optimal_tags - total_tags)) - intersecting
+        fittest = max(fitnesses.items(), key=operator.itemgetter(1))
+        paired_images.append((base_image, fittest[0]))
+        working_images.remove(fittest[0])
+        working_images.remove(base_image)
+    return paired_images
+
+
+def slides_from_images(images):
+    return [Slide([x]) for x in images if not x.vertical] +\
+           [Slide([x, y]) for x, y in pair_images([z for z in images if z.vertical])]
+
+
 def file_to_images(file_name):
     """
             Takes a file and parses the text into image objects.
@@ -47,30 +71,6 @@ def slides_to_file(slides, file_name):
         for y in x.image:
             out += str(y.image_num) + " "
         file.write(out + "\n")
-
-
-def pair_images(images):
-    avg_tags = float(sum([len(x.tags) for x in images])) / float(len(images))
-    paired_images = []
-    working_images = images
-    while len(working_images) > 0:
-        base_image = working_images[0]
-        fitnesses = {}
-        for (j, image) in enumerate(working_images[1:]):
-            total_tags = len(base_image.tags) + len(list(set(image.tags) - set(base_image.tags)))
-            intersecting = len([x for x in base_image.tags if x in image.tags])
-            optimal_tags = 2 * avg_tags
-            fitnesses[image] = (optimal_tags - abs(optimal_tags - total_tags)) - intersecting
-        fittest = max(fitnesses.items(), key=operator.itemgetter(1))
-        paired_images.append((base_image, fittest[0]))
-        working_images.remove(fittest[0])
-        working_images.remove(base_image)
-    return paired_images
-
-
-def slides_from_images(images):
-    return [Slide([x]) for x in images if not x.vertical] +\
-           [Slide([x, y]) for x, y in pair_images([z for z in images if z.vertical])]
 
 
 def main():
