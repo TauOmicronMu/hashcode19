@@ -1,6 +1,6 @@
 from pprint import pprint
 from Image import Image
-import Slide
+from Slide import Slide
 
 
 def fitness(a, b):
@@ -20,8 +20,12 @@ def fitness(a, b):
     return f, r
 
 
-# pass file name and will return a list of Image objects
 def file_to_images(file_name):
+    """
+            Takes a file and parses the text into image objects.
+        :param file_name: The name of the file.
+        :return: A list of all image objects.
+        """
     file = open(file_name, "r")
     images = []
     num_photos = int(file.readline())
