@@ -94,7 +94,7 @@ def construct_slideshow(slides):
         slide_one = slides[0]
         slides[0].taken = True
 
-        partner = get_partner(slide_one, [x for x in matrix.keys() if not x.taken])
+        partner = get_partner(slide_one, [x for x in matrix.keys() if not x.taken], matrix)
 
         pairs.append((slide_one, partner))
         slides[slides.indexOf(partner)].taken = True
@@ -119,7 +119,7 @@ def construct_slideshow(slides):
         current_final_pair = pair_slideshow[-1][1]
 
         #  Now get the best next slide from our list of pairs
-        final_slide_partner = get_partner(current_final_pair[1], [x for (x, y) in pairs])
+        final_slide_partner = get_partner(current_final_pair[1], [x for (x, y) in pairs], matrix)
         next_slide = [(x, y) for (x, y) in pairs if x.image[0].image_num == final_slide_partner.image[0].image_num]
         pair_slideshow.append(next_slide)
 
@@ -127,7 +127,7 @@ def construct_slideshow(slides):
     return [x.append(y) for (x, y) in pair_slideshow]
 
 
-def get_partner(slide, candidates):
+def get_partner(slide, candidates, matrix):
     """
         Returns the optimal partner for a given slide.
     :param slide: The slide to find a partner for.
